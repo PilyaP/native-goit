@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -6,16 +7,15 @@ import {
   TextInput,
   View,
   Platform,
-  Image,
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
-import * as ImagePicker from "expo-image-picker";
 
 export const LoginScreen = () => {
   const [isActive, setIsActive] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigation = useNavigation();
   const handleFocus = (name) => {
     return () => {
       setIsActive(name);
@@ -35,129 +35,135 @@ export const LoginScreen = () => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
-        onPress={Keyboard.dismiss}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        keyboardVerticalOffset={200}
-        style={styles.container}
-      >
-        <View style={styles.loginContainer}>
-          {/* {avatar && <Image source={{ uri: avatar }} style={styles.avatar} />}
-          {!avatar ? (
-            <TouchableOpacity onPress={handleAddAvatar}>
-              <Image
-                source={require("../../assets/emty.png")}
-                style={styles.avatarEmpty}
+    <View style={styles.container}>
+      <Image
+        source={require("../../assets/bgpic.png")}
+        style={styles.backgroundImage}
+      />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          onPress={Keyboard.dismiss}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          keyboardVerticalOffset={200}
+          style={styles.container}
+        >
+          <View style={styles.loginContainer}>
+            {avatar && <Image source={{ uri: avatar }} style={styles.avatar} />}
+            {!avatar ? (
+              <TouchableOpacity onPress={handleAddAvatar}>
+                <Image
+                  source={require("../../assets/emty.png")}
+                  style={styles.avatarEmpty}
+                />
+                <Svg
+                  style={styles.addAvatarSvg}
+                  width="25"
+                  height="25"
+                  viewBox="0 0 25 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <Circle
+                    cx="12.5"
+                    cy="12.5"
+                    r="12"
+                    fill="white"
+                    stroke="#FF6C00"
+                  />
+                  <Path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M13 6H12V12H6V13H12V19H13V13H19V12H13V6Z"
+                    fill="#FF6C00"
+                  />
+                </Svg>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.delAvatarSvg}
+                onPress={handleDeleteAvatar}
+              >
+                <Svg
+                  width="37"
+                  height="37"
+                  viewBox="0 0 37 37"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <Circle
+                    cx="18.4999"
+                    cy="18.5"
+                    r="12"
+                    transform="rotate(-45 18.4999 18.5)"
+                    fill="white"
+                    stroke="#E8E8E8"
+                  />
+                  <Path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M14.2574 13.5503L13.5503 14.2574L17.7929 18.5L13.5503 22.7426L14.2574 23.4497L18.5 19.2071L22.7426 23.4497L23.4498 22.7426L19.2071 18.5L23.4498 14.2574L22.7426 13.5503L18.5 17.7929L14.2574 13.5503Z"
+                    fill="#BDBDBD"
+                  />
+                </Svg>
+              </TouchableOpacity>
+            )}
+
+            <Text style={styles.loginText}>Увійти</Text>
+            <View style={styles.loginForm}>
+              <TextInput
+                onFocus={handleFocus("email")}
+                type={"email"}
+                style={[styles.input, isActive === "email" && styles.active]}
+                placeholder="Адреса електронної пошти"
               />
-              <Svg
-                style={styles.addAvatarSvg}
-                width="25"
-                height="25"
-                viewBox="0 0 25 25"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <Circle
-                  cx="12.5"
-                  cy="12.5"
-                  r="12"
-                  fill="white"
-                  stroke="#FF6C00"
-                />
-                <Path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M13 6H12V12H6V13H12V19H13V13H19V12H13V6Z"
-                  fill="#FF6C00"
-                />
-              </Svg>
-            </TouchableOpacity>
-          ) : (
+              <TextInput
+                onFocus={handleFocus("password")}
+                secureTextEntry={!showPassword}
+                type={"password"}
+                style={[styles.input, isActive === "password" && styles.active]}
+                placeholder="Пароль"
+              />
+            </View>
             <TouchableOpacity
-              style={styles.delAvatarSvg}
-              onPress={handleDeleteAvatar}
+              onPress={handleShowPassword}
+              style={styles.showPasswordBtn}
             >
-              <Svg
-                width="37"
-                height="37"
-                viewBox="0 0 37 37"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <Circle
-                  cx="18.4999"
-                  cy="18.5"
-                  r="12"
-                  transform="rotate(-45 18.4999 18.5)"
-                  fill="white"
-                  stroke="#E8E8E8"
-                />
-                <Path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M14.2574 13.5503L13.5503 14.2574L17.7929 18.5L13.5503 22.7426L14.2574 23.4497L18.5 19.2071L22.7426 23.4497L23.4498 22.7426L19.2071 18.5L23.4498 14.2574L22.7426 13.5503L18.5 17.7929L14.2574 13.5503Z"
-                  fill="#BDBDBD"
-                />
-              </Svg>
-            </TouchableOpacity>
-          )} */}
-
-          <Text style={styles.loginText}>Увійти</Text>
-          <View style={styles.loginForm}>
-            <TextInput
-              onFocus={handleFocus("email")}
-              type={"email"}
-              style={[styles.input, isActive === "email" && styles.active]}
-              placeholder="Адреса електронної пошти"
-            />
-            <TextInput
-              onFocus={handleFocus("password")}
-              secureTextEntry={!showPassword}
-              type={"password"}
-              style={[styles.input, isActive === "password" && styles.active]}
-              placeholder="Пароль"
-            />
-          </View>
-          <TouchableOpacity
-            onPress={handleShowPassword}
-            style={styles.showPasswordBtn}
-          >
-            <Text style={styles.showPasswordText}>
-              {showPassword ? "Приховати" : "Показати"}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
-            <Text style={styles.loginBtnTxt}>Увійти</Text>
-          </TouchableOpacity>
-          <View style={styles.accView}>
-            <Text
-              style={{
-                fontSize: 16,
-                color: "#1B4371",
-                textAlign: "center",
-              }}
-            >
-              Немає акаунту?
-            </Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("RegistrationScreen")}
-            >
-              <Text
-                style={{
-                  gap: 3,
-                  fontSize: 16,
-                  color: "#1B4371",
-                }}
-              >
-                Зареєструватися
+              <Text style={styles.showPasswordText}>
+                {showPassword ? "Приховати" : "Показати"}
               </Text>
             </TouchableOpacity>
+
+            <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
+              <Text style={styles.loginBtnTxt}>Увійти</Text>
+            </TouchableOpacity>
+            <View style={styles.accView}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "#1B4371",
+                  textAlign: "center",
+                }}
+              >
+                Немає акаунту?
+              </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("RegistrationScreen")}
+              >
+                <Text
+                  style={{
+                    gap: 3,
+                    fontSize: 16,
+                    color: "#1B4371",
+                  }}
+                >
+                  Зареєструватися
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
+    </View>
   );
 };
 
@@ -165,7 +171,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-end",
-    alignItems: "center",
+  },
+  backgroundImage: {
+    position: "absolute",
+    width: "100%",
+    resizeMode: "cover",
   },
   loginContainer: {
     paddingHorizontal: "5%",
