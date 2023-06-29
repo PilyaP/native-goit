@@ -121,7 +121,14 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { Circle, Path, Svg } from "react-native-svg";
 import { useNavigation } from "@react-navigation/native";
+const initialState = {
+  login: "",
+  email: "",
+  password: "",
+};
+
 export const RegistrationScreen = () => {
+  const [state, setState] = useState(initialState);
   const [isActive, setIsActive] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -151,6 +158,7 @@ export const RegistrationScreen = () => {
     setShowPassword(!showPassword);
   };
   const handleReg = () => {
+    setState(initialState);
     navigation.navigate("Home");
   };
 
@@ -231,22 +239,37 @@ export const RegistrationScreen = () => {
             <Text style={styles.regText}>Реєстрація</Text>
             <View style={styles.regForm}>
               <TextInput
+                value={state.login}
                 onFocus={handleFocus("login")}
                 type={"text"}
                 style={[styles.input, isActive === "login" && styles.active]}
                 placeholder="Логін"
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, login: value }))
+                }
               />
               <TextInput
+                value={state.email}
                 onFocus={handleFocus("email")}
                 type={"email"}
                 style={[styles.input, isActive === "email" && styles.active]}
                 placeholder="Адреса електронної пошти"
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, email: value }))
+                }
               />
               <TextInput
+                value={state.password}
                 onFocus={handleFocus("password")}
                 secureTextEntry={!showPassword}
                 type={"password"}
                 style={[styles.input, isActive === "password" && styles.active]}
+                onChangeText={(value) =>
+                  setState((prevState) => ({
+                    ...prevState,
+                    password: value,
+                  }))
+                }
                 placeholder="Пароль"
               />
             </View>

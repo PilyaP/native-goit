@@ -11,10 +11,15 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
-
+const initialState = {
+  login: "",
+  email: "",
+  password: "",
+};
 export const LoginScreen = () => {
   const [isActive, setIsActive] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [state, setState] = useState(initialState);
   const navigation = useNavigation();
   const handleFocus = (name) => {
     return () => {
@@ -26,12 +31,9 @@ export const LoginScreen = () => {
     setShowPassword(!showPassword);
   };
   const handleLogin = () => {
-    navigation.navigate("Home", {
-      screen: "PostScreen",
-      params: {
-        user: "Pavkin",
-      },
-    });
+    setState(initialState);
+    console.log(state);
+    navigation.navigate("Home");
   };
 
   return (
@@ -50,7 +52,7 @@ export const LoginScreen = () => {
           <View style={styles.loginContainer}>
             {avatar && <Image source={{ uri: avatar }} style={styles.avatar} />}
             {!avatar ? (
-              <TouchableOpacity onPress={handleAddAvatar}>
+              <TouchableOpacity>
                 <Image
                   source={require("../../assets/emty.png")}
                   style={styles.avatarEmpty}
@@ -111,13 +113,24 @@ export const LoginScreen = () => {
             <Text style={styles.loginText}>Увійти</Text>
             <View style={styles.loginForm}>
               <TextInput
+                value={state.email}
                 onFocus={handleFocus("email")}
                 type={"email"}
                 style={[styles.input, isActive === "email" && styles.active]}
                 placeholder="Адреса електронної пошти"
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, email: value }))
+                }
               />
               <TextInput
+                value={state.password}
                 onFocus={handleFocus("password")}
+                onChangeText={(value) =>
+                  setState((prevState) => ({
+                    ...prevState,
+                    password: value,
+                  }))
+                }
                 secureTextEntry={!showPassword}
                 type={"password"}
                 style={[styles.input, isActive === "password" && styles.active]}

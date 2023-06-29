@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { RegistrationScreen } from "./Screens/RegistrationScreen/RegistrationScreen";
 import { LoginScreen } from "./Screens/LoginScreen/LoginScreen";
-import { MapScreen } from "./Screens/MapScreen/MapScreen";
+// import { MapScreen } from "./Screens/MapScreen/MapScreen";
 import Home from "./Screens/Home/Home";
 import { useFonts } from "expo-font";
 // import { RegistrationScreen } from "./Screens/RegistrationScreen/RegistrationScreen";
@@ -26,7 +26,7 @@ export default function App() {
       <MainStack.Navigator>
         {/* Аналог Routes */}
         <MainStack.Screen
-          name="Registration"
+          name="Register"
           options={{
             title: "Registration",
             headerStyle: {
@@ -41,13 +41,22 @@ export default function App() {
           }}
           component={RegistrationScreen}
         />
-        {/* Аналог Route */}
-        <MainStack.Screen name="Login" component={LoginScreen} />
         <MainStack.Screen
+          name="Login"
+          options={{
+            headerShown: false,
+          }}
+          component={LoginScreen}
+        />
+        <MainStack.Screen
+          options={{
+            headerShown: false,
+          }}
           name="Home"
-          options={{ title: "Start screen" }}
           component={Home}
         />
+        {/* Аналог Route */}
+
         {/* <MainStack.Screen
           name="MapScreen"
           component={MapScreen}
@@ -67,16 +76,7 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: "#fff",
-  //   // alignItems: "center",
-  //   // justifyContent: "center",
-  // },
-});
-{
-  /* <View style={styles.container}>
+/* <View style={styles.container}>
       <ImageBackground
         source={require("./assets/bgpic.png")}
         style={styles.backgroundImage}
@@ -86,4 +86,3 @@ const styles = StyleSheet.create({
         <StatusBar style="auto" />
       </ImageBackground>
     </View> */
-}
