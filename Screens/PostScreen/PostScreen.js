@@ -49,7 +49,7 @@ export const PostScreen = ({ route, navigation }) => {
               <TouchableOpacity
                 style={styles.comments}
                 onPress={() => {
-                  navigation.navigate("Комментарии", { image: item.photo });
+                  navigation.navigate("Коментарі", { image: item.photo });
                 }}
               >
                 <EvilIcons name="comment" size={24} color="#BDBDBD" />
@@ -59,7 +59,7 @@ export const PostScreen = ({ route, navigation }) => {
               <TouchableOpacity
                 style={styles.location}
                 onPress={() =>
-                  navigation.navigate("Карта", {
+                  navigation.navigate("Map", {
                     name: item.name,
                     latitude: item.latitude,
                     longitude: item.longitude,
