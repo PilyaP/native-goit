@@ -6,8 +6,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { RegistrationScreen } from "./Screens/RegistrationScreen/RegistrationScreen";
 import { LoginScreen } from "./Screens/LoginScreen/LoginScreen";
 // import { MapScreen } from "./Screens/MapScreen/MapScreen";
-import Home from "./Screens/Home/Home";
+
 import { useFonts } from "expo-font";
+import Home from "./Screens/Home/Home";
 // import { RegistrationScreen } from "./Screens/RegistrationScreen/RegistrationScreen";
 const MainStack = createStackNavigator();
 export default function App() {
