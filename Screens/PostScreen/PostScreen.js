@@ -23,7 +23,7 @@ export const PostScreen = ({ route, navigation }) => {
     <View style={styles.container}>
       <View style={styles.userWrapper}>
         <Image
-          source={require("../../assets/avatar.png")}
+          source={require("../../assets/avamid.png")}
           style={styles.image}
         />
         <View style={styles.userInfo}>
@@ -49,7 +49,7 @@ export const PostScreen = ({ route, navigation }) => {
               <TouchableOpacity
                 style={styles.comments}
                 onPress={() => {
-                  navigation.navigate("Коментарі", { image: item.photo });
+                  navigation.navigate("Comments", { image: item.photo });
                 }}
               >
                 <EvilIcons name="comment" size={24} color="#BDBDBD" />

@@ -9,6 +9,9 @@ import { LoginScreen } from "./Screens/LoginScreen/LoginScreen";
 
 import { useFonts } from "expo-font";
 import Home from "./Screens/Home/Home";
+import { CommentsScreen } from "./Screens/CommentsScreen/CommentsScreen";
+import { MapScreen } from "./Screens/MapScreen/MapScreen";
+import { Text } from "react-native";
 // import { RegistrationScreen } from "./Screens/RegistrationScreen/RegistrationScreen";
 const MainStack = createStackNavigator();
 export default function App() {
@@ -58,20 +61,16 @@ export default function App() {
         />
         {/* Аналог Route */}
 
-        {/* <MainStack.Screen
-          name="MapScreen"
-          component={MapScreen}
-          options={{
-            headerTitle: () => <Text style={null}>Мапа</Text>,
-          }}
-        /> */}
-        {/* <MainStack.Screen
-          name="CommentsScreen"
+        <MainStack.Screen
+          name="Comments"
           component={CommentsScreen}
-          options={{
-            headerTitle: () => <Text style={null}>Коментарі</Text>,
-          }}
-        /> */}
+          options={{ headerShown: true, headerTitleAlign: "center" }}
+        />
+        <MainStack.Screen
+          name="Map"
+          component={MapScreen}
+          options={{ headerShown: true, headerTitleAlign: "center" }}
+        />
       </MainStack.Navigator>
     </NavigationContainer>
   );
