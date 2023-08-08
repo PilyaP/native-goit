@@ -49,7 +49,7 @@ export const CreatePostsScreen = ({ navigation }) => {
   };
 
   const sendPhoto = () => {
-    navigation.navigate("Публикации", {
+    navigation.navigate("Публікації", {
       photo,
       name,
       location,
@@ -83,14 +83,14 @@ export const CreatePostsScreen = ({ navigation }) => {
                 </TouchableOpacity>
               </Camera>
 
-              <Text style={styles.text}>Загрузите фото</Text>
+              <Text style={styles.text}>Завантажте фото</Text>
             </View>
           )}
 
           <TextInput
             value={name}
             onChangeText={(value) => setName(value)}
-            placeholder="Название..."
+            placeholder="Назва..."
             placeholderTextColor="#BDBDBD"
             onFocus={() => {
               setIsShowKeyboard(true);
@@ -114,7 +114,7 @@ export const CreatePostsScreen = ({ navigation }) => {
             <TextInput
               value={location}
               onChangeText={(value) => setLocation(value)}
-              placeholder="Местность..."
+              placeholder="Місцевість..."
               placeholderTextColor="#BDBDBD"
               onFocus={() => {
                 setIsShowKeyboard(true);

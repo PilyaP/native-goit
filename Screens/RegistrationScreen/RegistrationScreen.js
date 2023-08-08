@@ -1,110 +1,3 @@
-// import React, { useState } from "react";
-// import {
-//   KeyboardAvoidingView,
-//   StyleSheet,
-//   Text,
-//   TextInput,
-//   View,
-//   Platform,
-//   Image,
-//   TouchableOpacity,
-// } from "react-native";
-// import * as ImagePicker from "react-native-image-picker";
-
-// export const LoginScreen = () => {
-//   const [isActive, setIsActive] = useState("");
-//   const [avatar, setAvatar] = useState({
-//     uri: "https://raw.githubusercontent.com/alex-neveroff/react-native-hw/main/assets/images/avatar-blanc.jpg",
-//   });
-
-//   function handleFocus(name) {
-//     return () => {
-//       setIsActive(name);
-//     };
-//   }
-//   console.log(isActive);
-
-//   const handleAddAvatar = () => {
-//     const options = {
-//       mediaType: "photo",
-//       quality: 1,
-//       includeBase64: false,
-//       maxHeight: 500,
-//       maxWidth: 500,
-//     };
-
-//     ImagePicker.launchImageLibrary(options, (response) => {
-//       if (!response.didCancel) {
-//         const selectedAvatar = {
-//           uri: response.uri,
-//           type: response.type,
-//           name: response.fileName || "avatar.jpg",
-//         };
-
-//         setAvatar(selectedAvatar);
-//       }
-//     });
-//   };
-
-//   return (
-//     <KeyboardAvoidingView
-//       behavior={Platform.OS === "ios" && "padding"}
-//       keyboardVerticalOffset={200}
-//       style={styles.container}
-//     >
-//       <View
-//         style={{
-//           paddingHorizontal: "5%",
-//           height: 500,
-//           backgroundColor: "#FFFFFF",
-//           width: "100%",
-//           alignItems: "center",
-//         }}
-//       >
-//         <TouchableOpacity onPress={handleAddAvatar}>
-//           {/* <Image style={null} source={require("../../assets/avatar.png")} /> */}
-//           <Image style={styles.avatar} source={{ uri: avatar.uri }} />
-//         </TouchableOpacity>
-//         <Text>Реєстрація</Text>
-//         <TextInput
-//           onFocus={handleFocus("login")}
-//           style={[styles.input, isActive === "login" && styles.active]}
-//           placeholder="Логін"
-//         />
-//         <TextInput
-//           onFocus={handleFocus("email")}
-//           style={[styles.input, isActive === "email" && styles.active]}
-//           placeholder="Адреса електронної пошти"
-//         />
-//         <TextInput
-//           onFocus={handleFocus("password")}
-//           style={[styles.input, isActive === "password" && styles.active]}
-//           placeholder="Пароль"
-//         />
-//       </View>
-//     </KeyboardAvoidingView>
-//   );
-// };
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "flex-end",
-//     alignItems: "center",
-//   },
-//   input: {
-//     backgroundColor: "#E8E8E8",
-//     width: "100%",
-//     marginVertical: 10,
-//     borderRadius: 5,
-//     paddingHorizontal: 15,
-//   },
-//   active: {
-//     backgroundColor: "#ffffff",
-//     borderColor: "#FF6C00",
-//     borderWidth: 1,
-//   },
-// });
-
 import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -121,6 +14,9 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { Circle, Path, Svg } from "react-native-svg";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { authSignInUser } from "../../redux/auth/authOperations";
+
 const initialState = {
   login: "",
   email: "",
@@ -133,6 +29,8 @@ export const RegistrationScreen = () => {
   const [avatar, setAvatar] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   const handleFocus = (name) => {
     return () => {
       setIsActive(name);
@@ -158,6 +56,7 @@ export const RegistrationScreen = () => {
     setShowPassword(!showPassword);
   };
   const handleReg = () => {
+    dispatch(authSignInUser(state));
     setState(initialState);
     navigation.navigate("Home");
   };

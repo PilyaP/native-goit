@@ -16,7 +16,7 @@ const Stack = createStackNavigator();
 const Home = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Публикации"
+      initialRouteName="Публікації"
       screenOptions={{
         headerTitleAlign: "center",
         headerStyle: styles.header,
@@ -32,7 +32,7 @@ const Home = () => {
       }}
     >
       <Tab.Screen
-        name="Публикации"
+        name="Публікації"
         component={PostScreen}
         options={{
           tabBarIcon: ({ focused, size, color }) => (
@@ -50,7 +50,7 @@ const Home = () => {
       />
 
       <Tab.Screen
-        name="Создать публикацию"
+        name="Створити публікацію"
         component={CreatePostsScreen}
         options={{
           tabBarIcon: ({ focused, size, color }) => (
@@ -60,7 +60,7 @@ const Home = () => {
           ),
           headerLeft: ({ navigation }) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate("Публикации")}
+              onPress={() => navigation.navigate("Публікації")}
               style={{ marginLeft: 16 }}
             >
               <AntDesign name="arrowleft" size={24} color="#212121CC" />

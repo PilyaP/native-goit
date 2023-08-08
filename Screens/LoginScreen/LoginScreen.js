@@ -12,6 +12,9 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { authSignUpUser } from "../../redux/auth/authOperations";
+
 const initialState = {
   login: "",
   email: "",
@@ -22,6 +25,9 @@ export const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [state, setState] = useState(initialState);
   const navigation = useNavigation();
+
+  const dispatch = useDispatch();
+
   const handleFocus = (name) => {
     return () => {
       setIsActive(name);
@@ -32,6 +38,7 @@ export const LoginScreen = () => {
     setShowPassword(!showPassword);
   };
   const handleLogin = () => {
+    dispatch(authSignUpUser(state));
     setState(initialState);
     console.log(state);
     navigation.navigate("Home");
